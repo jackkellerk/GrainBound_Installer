@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2">
+  <asmv1:assemblyIdentity name="GrainBound_Installer.exe" version="1.0.0.0" publicKeyToken="6a5d69edd36a0666" language="neutral" processorArchitecture="msil" type="win32" />
+  <application />
+  <entryPoint>
+    <assemblyIdentity name="GrainBound_Installer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+    <commandLine file="GrainBound_Installer.exe" parameters="" />
+  </entryPoint>
+  <trustInfo>
+    <security>
+      <applicationRequestMinimum>
+        <PermissionSet Unrestricted="true" ID="Custom" SameSite="site" />
+        <defaultAssemblyRequest permissionSetReference="Custom" />
+      </applicationRequestMinimum>
+      <requestedPrivileges xmlns="urn:schemas-microsoft-com:asm.v3">
+        <!--
+          UAC Manifest Options
+          If you want to change the Windows User Account Control level replace the
+          requestedExecutionLevel node with one of the following.
+
+        <requestedExecutionLevel  level="asInvoker" uiAccess="false" />
+        <requestedExecutionLevel  level="requireAdministrator" uiAccess="false" />
+        <requestedExecutionLevel  level="highestAvailable" uiAccess="false" />
+
+         If you want to utilize File and Registry Virtualization for backward
+         compatibility then delete the requestedExecutionLevel node.
+    -->
+        <requestedExecutionLevel level="asInvoker" uiAccess="false" />
+      </requestedPrivileges>
+    </security>
+  </trustInfo>
+  <dependency>
+    <dependentOS>
+      <osVersionInfo>
+        <os majorVersion="5" minorVersion="1" buildNumber="2600" servicePackMajor="0" />
+      </osVersionInfo>
+    </dependentOS>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="preRequisite" allowDelayedBinding="true">
+      <assemblyIdentity name="Microsoft.Windows.CommonLanguageRuntime" version="4.0.30319.0" />
+    </dependentAssembly>
+  </dependency>
+  <dependency>
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GrainBound_Installer.exe" size="534936">
+      <assemblyIdentity name="GrainBound_Installer" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+        <dsig:DigestValue>xo5fHbCvtgYn/3ArTopee2jON8mfDEy4Awp6Ev6bV/U=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+  <file name="GrainBound_Installer.exe.config" size="189">
+    <hash>
+      <dsig:Transforms>
+        <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+      </dsig:Transforms>
+      <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
+      <dsig:DigestValue>R+Wg8QGvQVHX8T0ta/qbhH1bXkqY0fRnS3wBV3J0bN8=</dsig:DigestValue>
+    </hash>
+  </file>
+<publisherIdentity name="CN=MSI\jkell" issuerKeyHash="bae13ebb4509d163955fb36d69276ffccfced026" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>6Z1tDHh8bf4vtvyxXwz5cW1OU2WMxUpSA9hN435S8+o=</DigestValue></Reference></SignedInfo><SignatureValue>oIf13WFQ1ByvRM/nYJuczxfnkBonlrYKtt8iqkpaZC0h0u+kS4YxwIxBS40YHdQblKcuLB0pzSgQf31cFrTcXy2W6KoxPW0VFaHHDqzVcNi8NpbzIv3AMRv29QbSvPrdpJ4wk9hMc5hEvm8Jxc8CA9Yjh/KFo4yDtRo92uTYZcI=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>w9YKpJrIyRNoJeNXwJ1zwYX+FhWpBiF4l/MbbKErnfNimrGlPRug3wVHUIsK13WNvgGVHRLbZZEl4SX4BNp+co+Bwri241YO6vabmO85bZeSIJCUaRvD+4GTzu7LqGOXcnapcRF6uq2sh3Ia5C402DEUMfLRrvC3sXkJ7lC9K/U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="eaf3527ee34dd803524ac58c65534e6d71f90c5fb1fcb62ffe6d7c780c6d9de9" Description="" Url=""><as:assemblyIdentity name="GrainBound_Installer.exe" version="1.0.0.0" publicKeyToken="6a5d69edd36a0666" language="neutral" processorArchitecture="msil" type="win32" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=MSI\jkell</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha256" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" /><DigestValue>f9HZ/vnNPo+BoaijF/GbFvBXTvTR+NyeYTxpQrKgPr0=</DigestValue></Reference></SignedInfo><SignatureValue>nZl9QEoxvJvZCAGfsYv1nV7Vs0e5Y33v68hxe0bNjOAB3oLAt5+YA3BM4K7cBeJ7ovU09MMljZa342MEP3/zz6R6LRAvTy6cJ2g8iwp0Vouh1pZBOhQT/f6Z564K7kOH8DS9SA0COAP/dwJRzcAWE7yyMzmj3pHyV2AG6uHAOII=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>w9YKpJrIyRNoJeNXwJ1zwYX+FhWpBiF4l/MbbKErnfNimrGlPRug3wVHUIsK13WNvgGVHRLbZZEl4SX4BNp+co+Bwri241YO6vabmO85bZeSIJCUaRvD+4GTzu7LqGOXcnapcRF6uq2sh3Ia5C402DEUMfLRrvC3sXkJ7lC9K/U=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIBvTCCASagAwIBAgIQclKqFREYu61Bb+wfw4WXXzANBgkqhkiG9w0BAQsFADAdMRswGQYDVQQDHhIATQBTAEkAXABqAGsAZQBsAGwwHhcNMjAxMjA3MTc1OTE0WhcNMjExMjA3MjM1OTE0WjAdMRswGQYDVQQDHhIATQBTAEkAXABqAGsAZQBsAGwwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBAMPWCqSayMkTaCXjV8Cdc8GF/hYVqQYheJfzG2yhK53zYpqxpT0boN8FR1CLCtd1jb4BlR0S22WRJeEl+ATafnKPgcK4tuNWDur2m5jvOW2XkiCQlGkbw/uBk87uy6hjl3J2qXERerqtrIdyGuQuNNgxFDHy0a7wt7F5Ce5QvSv1AgMBAAEwDQYJKoZIhvcNAQELBQADgYEAZp3swCqyPaGvI2H3G96MXEF8tWvOWfyfMqvqcIbwPJ8tm/B2Tfvt8e7dispz8KDvAc+8z2pQeG3ZKvwYFidJo8PQ+EbXC1XsF0BZqOUOVja8lX9Hjrt47F+M9EWF3llbc1ZOuvmMPJxsSgPPoR8w1Ug2FrYqPp9dIz5Gd+9Z1OM=</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
