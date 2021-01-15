@@ -42,14 +42,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GrainBound_Installer.exe" size="536472">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="GrainBound_Installer.exe" size="540568">
       <assemblyIdentity name="GrainBound_Installer" version="1.0.0.1" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>th87UtcqvisFtlPj1YeMb3JtqCV+C/GukzdDHeZN4eg=</dsig:DigestValue>
+        <dsig:DigestValue>dX86iX19RFm9i8kEW3z6ItmTOh/W8C/wwqUgYGwsrjQ=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
