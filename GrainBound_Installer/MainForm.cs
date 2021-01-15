@@ -202,6 +202,22 @@ namespace GrainBound_Installer
             }
         }
 
+        private void lblEmail_Click(object sender, EventArgs e)
+        {
+            Process.Start("mailto:info@grainbound.com");
+        }
+
+        // These use hardcoded values for hovering over logo.
+        private void pboxLogo_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.X > 80 && e.X < 350 && e.Y < 135) Process.Start("https://www.grainbound.com/");
+        }
+        private void pboxLogo_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (e.X > 80 && e.X < 350 && e.Y < 135) pboxLogo.Cursor = Cursors.Hand;
+            else pboxLogo.Cursor = Cursors.Default;
+        }
+
         private void btnInstallLocation_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog fbd = new FolderBrowserDialog();

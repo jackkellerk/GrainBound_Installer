@@ -24,11 +24,6 @@ C:\Users\jkell\source\repos\GrainBound_Installer\GrainBound_Installer\bin\Debug\
 C:\Users\jkell\source\repos\GrainBound_Installer\GrainBound_Installer\bin\Debug\System.Numerics.Vectors.xml
 C:\Users\jkell\source\repos\GrainBound_Installer\GrainBound_Installer\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 C:\Users\jkell\source\repos\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.csproj.CopyComplete
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound_Installer.exe.config
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound_Installer.exe.manifest
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound_Installer.application
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound_Installer.exe
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound_Installer.pdb
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\SharpCompress.dll
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\System.Buffers.dll
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\System.Memory.dll
@@ -44,8 +39,13 @@ C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\o
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.MainForm.resources
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.Properties.Resources.resources
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.csproj.GenerateResource.cache
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.exe.manifest
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.application
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.csproj.CopyComplete
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.exe
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.pdb
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe.config
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe.manifest
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.application
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.pdb
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.exe.manifest
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.application
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.exe
+C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.pdb
