@@ -69,7 +69,7 @@ namespace GrainBound_Installer
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(93, 37);
             this.btnCancel.TabIndex = 1;
-            this.btnCancel.Text = "Cancel";
+            this.btnCancel.Text = "Close";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
@@ -133,9 +133,9 @@ namespace GrainBound_Installer
             this.label4.Location = new System.Drawing.Point(9, 140);
             this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(68, 13);
+            this.label4.Size = new System.Drawing.Size(74, 13);
             this.label4.TabIndex = 7;
-            this.label4.Text = "Contact us";
+            this.label4.Text = "Contact Us:";
             // 
             // lblEmail
             // 
@@ -186,9 +186,9 @@ namespace GrainBound_Installer
             this.label13.Location = new System.Drawing.Point(9, 90);
             this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(65, 13);
+            this.label13.Size = new System.Drawing.Size(69, 13);
             this.label13.TabIndex = 16;
-            this.label13.Text = "Disclaimer";
+            this.label13.Text = "Disclaimer:";
             // 
             // label14
             // 

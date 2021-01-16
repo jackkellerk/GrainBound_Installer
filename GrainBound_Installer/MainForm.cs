@@ -47,8 +47,9 @@ namespace GrainBound_Installer
         private void DownloadCompleted(object sender, AsyncCompletedEventArgs e)
         {
             downloading = false;
+            btnCancel.Text = "Close";
 
-            if(e.Cancelled)
+            if (e.Cancelled)
             {
                 Directory.Delete(tboxLocation.Text, true);
 
@@ -110,8 +111,9 @@ namespace GrainBound_Installer
                         webClient.DownloadFileAsync(new Uri(DOTNET_PATH_32), tboxLocation.Text + "\\dotnet.exe");
                     }
                     downloading = true;
+                    btnCancel.Text = "Cancel";
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while downloading .Net Core: " + ex.Message);
                 }
@@ -131,6 +133,7 @@ namespace GrainBound_Installer
             dlDotNet = false;
             webClient.DownloadFileAsync(new Uri(GRAINBOUND_PATH), tboxLocation.Text + "\\gb.zip");
             downloading = true;
+            btnCancel.Text = "Cancel";
         }
 
         private void unzipApplication()
@@ -147,6 +150,8 @@ namespace GrainBound_Installer
             btnInstall.Enabled = true;
             lblStatus.Text = "Status: Complete.";
             pgbProgress.Value = 0;
+
+            MessageBox.Show("GrainBound installation complete.");
         }
 
         private void createShortcut()
