@@ -34,11 +34,24 @@ namespace GrainBound_Installer
             webClient.Proxy = null;
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadCompleted);
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
+
+            if(checkRegistryKey())
+            {
+                if(Directory.Exists(prevInstallLoc))
+                {
+                    this.Hide();
+                    (new UninstallForm()).ShowDialog();
+                }
+                else
+                {
+                    removeRegistryKey();
+                }
+            }
         }
 
         private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
-            if(dlDotNet)
+            if (dlDotNet)
                 lblStatus.Text = "Status: Downloading .Net Files (" + e.ProgressPercentage + "%, " + (e.BytesReceived / 1000) + " kB / " + (e.TotalBytesToReceive / 1000) + " kB)...";
             else
                 lblStatus.Text = "Status: Downloading GrainBound Files (" + e.ProgressPercentage + "%, " + (e.BytesReceived / 1000) + " kB / " + (e.TotalBytesToReceive / 1000) + " kB)...";
@@ -57,32 +70,35 @@ namespace GrainBound_Installer
 
                 lblStatus.Text = "Status: Cancelled.";
                 btnInstall.Enabled = true;
+                tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
 
                 return;
             }
-            if(e.Error != null)
+            if (e.Error != null)
             {
                 MessageBox.Show("An error occurred during download: " + e.Error.Message, "Error");
                 lblStatus.Text = "Status: An error occurred.";
                 btnInstall.Enabled = true;
+                tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
                 return;
             }
 
-            if(dlDotNet)
+            if (dlDotNet)
             {
                 Process.Start(tboxLocation.Text + "\\dotnet.exe");
 
                 lblStatus.Text = "Status: Done downloading .Net files.";
                 btnInstall.Enabled = true;
+                tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
 
                 installFiles();
 
                 return;
             }
-            else unzipApplication();    
+            else unzipApplication();
         }
 
         private const string DOTNET_PATH_64 = "https://download.visualstudio.microsoft.com/download/pr/9845b4b0-fb52-48b6-83cf-4c431558c29b/41025de7a76639eeff102410e7015214/dotnet-runtime-3.1.10-win-x64.exe";
@@ -98,6 +114,7 @@ namespace GrainBound_Installer
             if (MessageBox.Show("This application requires .Net Core 5 or above (This computer has version " + Environment.Version.ToString() + "). Install version 5.0.0 now?", "Newer .Net Core Required", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 btnInstall.Enabled = false;
+                tboxLocation.Enabled = false;
 
                 lblStatus.Text = "Status: Downloading .Net Files...";
                 dlDotNet = true;
@@ -130,6 +147,7 @@ namespace GrainBound_Installer
         private void installFiles()
         {
             btnInstall.Enabled = false;
+            tboxLocation.Enabled = false;
 
             lblStatus.Text = "Status: Downloading GrainBound Files...";
             dlDotNet = false;
@@ -139,7 +157,7 @@ namespace GrainBound_Installer
         }
 
         private void unzipApplication()
-        {      
+        {
             lblStatus.Text = "Status: Unzipping files...";
 
             System.IO.Compression.ZipFile.ExtractToDirectory(tboxLocation.Text + "\\gb.zip", tboxLocation.Text);
@@ -150,10 +168,12 @@ namespace GrainBound_Installer
                 createShortcut();
 
             btnInstall.Enabled = true;
+            tboxLocation.Enabled = true;
             lblStatus.Text = "Status: Complete.";
             pgbProgress.Value = 0;
 
             MessageBox.Show("GrainBound installation complete.", "Installation Complete");
+            createRegistryKey();
         }
 
         private void createShortcut()
@@ -165,10 +185,35 @@ namespace GrainBound_Installer
             object shDesktop = (object)"Desktop";
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut((string)shell.SpecialFolders.Item(ref shDesktop) + @"\GrainBound.lnk");
 
-            shortcut.Description = "GrainBound Application";            
+            shortcut.Description = "GrainBound Application";
             shortcut.TargetPath = tboxLocation.Text + "\\GrainBound\\GrainBound.exe";
             shortcut.WorkingDirectory = tboxLocation.Text + "\\GrainBound";
             shortcut.Save();
+        }
+
+        Microsoft.Win32.RegistryKey regKey;
+        private string prevInstallLoc;
+        private void createRegistryKey()
+        {
+            regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("GrainBound");
+            regKey.SetValue("InstallInfo", tboxLocation.Text);
+            regKey.Close();
+        }
+        private bool checkRegistryKey()
+        {
+            try
+            {
+                regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("GrainBound");
+                prevInstallLoc = (string)regKey.GetValue("InstallInfo");
+                regKey.Close();
+                return true;
+            }
+            catch { return false; }
+        }
+        private void removeRegistryKey()
+        {
+            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey("GrainBound");
+            regKey.Close();
         }
 
         private void btnInstall_Click(object sender, EventArgs e)
