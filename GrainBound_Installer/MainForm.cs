@@ -29,7 +29,9 @@ namespace GrainBound_Installer
         {
             tboxLocation.Text = @"C:\Program Files (x86)\GrainBound";
 
+            WebRequest.DefaultWebProxy = null;
             webClient = new WebClient();
+            webClient.Proxy = null;
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadCompleted);
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
         }
@@ -61,7 +63,7 @@ namespace GrainBound_Installer
             }
             if(e.Error != null)
             {
-                MessageBox.Show("An error occurred during download: " + e.Error.Message);
+                MessageBox.Show("An error occurred during download: " + e.Error.Message, "Error");
                 lblStatus.Text = "Status: An error occurred.";
                 btnInstall.Enabled = true;
                 pgbProgress.Value = 0;
@@ -115,7 +117,7 @@ namespace GrainBound_Installer
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("An error occurred while downloading .Net Core: " + ex.Message);
+                    MessageBox.Show("An error occurred while downloading .Net Core: " + ex.Message, "Error");
                 }
             }
             else
@@ -151,7 +153,7 @@ namespace GrainBound_Installer
             lblStatus.Text = "Status: Complete.";
             pgbProgress.Value = 0;
 
-            MessageBox.Show("GrainBound installation complete.");
+            MessageBox.Show("GrainBound installation complete.", "Installation Complete");
         }
 
         private void createShortcut()
@@ -183,7 +185,7 @@ namespace GrainBound_Installer
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an error creating the install folder: " + ex.Message);
+                MessageBox.Show("There was an error creating the install folder: " + ex.Message + (ex.Message.Contains("Access to the path") ? " (Try running the installer as administrator)" : ""), "Error");
             }
         }
 
@@ -202,7 +204,7 @@ namespace GrainBound_Installer
         {
             if (downloading)
             {
-                MessageBox.Show("There is currently a download in progress. Please cancel the download before closing.");
+                MessageBox.Show("There is currently a download in progress. Please cancel the download before closing.", "Error");
                 e.Cancel = true;
             }
         }
@@ -219,8 +221,21 @@ namespace GrainBound_Installer
         }
         private void pboxLogo_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.X > 80 && e.X < 350 && e.Y < 135) pboxLogo.Cursor = Cursors.Hand;
-            else pboxLogo.Cursor = Cursors.Default;
+            if (e.X > 80 && e.X < 350 && e.Y < 135)
+            {
+                pboxLogo.Cursor = Cursors.Hand;
+                //tooltip.SetToolTip(pboxLogo, "Open the GrainBound website.");
+            }
+            else
+            {
+                pboxLogo.Cursor = Cursors.Default;
+                //tooltip.SetToolTip(pboxLogo, null);
+            }
+        }
+
+        private void lblAddr_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://maps.google.com/?q=301 Broadway, Bethlehem PA 18015");
         }
 
         private void btnInstallLocation_Click(object sender, EventArgs e)
