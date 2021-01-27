@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GrainBound Installer")]
-[assembly: AssemblyDescription("GrainBound Application")]
+[assembly: AssemblyDescription("GrainBound Installation Application")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("GrainBound")]
 [assembly: AssemblyProduct("GrainBound Installer")]

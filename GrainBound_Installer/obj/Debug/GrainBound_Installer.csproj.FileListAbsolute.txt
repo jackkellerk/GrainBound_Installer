@@ -41,12 +41,8 @@ C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\o
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.csproj.GenerateResource.cache
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.csproj.CopyComplete
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe.config
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe.manifest
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.application
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.exe
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\bin\Debug\GrainBound Installer.pdb
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.exe.manifest
-C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.application
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.exe
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound Installer.pdb
 C:\Stuff\School\fall 2020\grainbound\GrainBound_Installer\GrainBound_Installer\obj\Debug\GrainBound_Installer.UninstallForm.resources

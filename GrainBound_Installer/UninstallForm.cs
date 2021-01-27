@@ -55,6 +55,8 @@ namespace GrainBound_Installer
         {
             if(MessageBox.Show("This operation will permanently remove GrainBound from your computer. Are you sure you wish to proceed?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                btnUninstall.Text = "Uninstalling...";
+                btnUninstall.Enabled = false;
                 Directory.Delete(tboxLocation.Text, true);
                 if (File.Exists("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk"))
                     File.Delete("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk");

@@ -17,6 +17,8 @@ namespace GrainBound_Installer
 {
     public partial class MainForm : Form
     {
+        private const bool CHECK_FOR_DOT_NET = false; // Change this depending on whether or not to check for .net (I don't think it's important)
+
         private bool dlDotNet = false, downloading = false;
 
         public MainForm()
@@ -27,7 +29,7 @@ namespace GrainBound_Installer
         private WebClient webClient;
         private void MainForm_Load(object sender, EventArgs e)
         {
-            tboxLocation.Text = @"C:\Program Files (x86)\GrainBound";
+            tboxLocation.Text = "C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound";
 
             WebRequest.DefaultWebProxy = null;
             webClient = new WebClient();
@@ -49,6 +51,8 @@ namespace GrainBound_Installer
             }
         }
 
+        #region WebClient Functions
+
         private void DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             if (dlDotNet)
@@ -66,10 +70,15 @@ namespace GrainBound_Installer
 
             if (e.Cancelled)
             {
-                Directory.Delete(tboxLocation.Text, true);
+                try
+                {
+                    Directory.Delete(tboxLocation.Text, true);
+                }
+                catch { }
 
                 lblStatus.Text = "Status: Cancelled.";
                 btnInstall.Enabled = true;
+                btnInstallLocation.Enabled = true;
                 tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
 
@@ -77,9 +86,16 @@ namespace GrainBound_Installer
             }
             if (e.Error != null)
             {
+                try
+                {
+                    Directory.Delete(tboxLocation.Text, true);
+                }
+                catch { }
+
                 MessageBox.Show("An error occurred during download: " + e.Error.Message, "Error");
                 lblStatus.Text = "Status: An error occurred.";
                 btnInstall.Enabled = true;
+                btnInstallLocation.Enabled = true;
                 tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
                 return;
@@ -91,6 +107,7 @@ namespace GrainBound_Installer
 
                 lblStatus.Text = "Status: Done downloading .Net files.";
                 btnInstall.Enabled = true;
+                btnInstallLocation.Enabled = true;
                 tboxLocation.Enabled = true;
                 pgbProgress.Value = 0;
 
@@ -101,11 +118,15 @@ namespace GrainBound_Installer
             else unzipApplication();
         }
 
+        #endregion
+
+        #region Install Functions
+
         private const string DOTNET_PATH_64 = "https://download.visualstudio.microsoft.com/download/pr/9845b4b0-fb52-48b6-83cf-4c431558c29b/41025de7a76639eeff102410e7015214/dotnet-runtime-3.1.10-win-x64.exe";
         private const string DOTNET_PATH_32 = "https://download.visualstudio.microsoft.com/download/pr/abb3fb5d-4e82-4ca8-bc03-ac13e988e608/b34036773a72b30c5dc5520ee6a2768f/dotnet-runtime-3.1.10-win-x86.exe";
         private void checkDotNet()
         {
-            if (Environment.Version.Major >= 5)
+            if (Environment.Version.Major >= 5 || !CHECK_FOR_DOT_NET)
             {
                 installFiles();
                 return;
@@ -114,6 +135,7 @@ namespace GrainBound_Installer
             if (MessageBox.Show("This application requires .Net Core 5 or above (This computer has version " + Environment.Version.ToString() + "). Install version 5.0.0 now?", "Newer .Net Core Required", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
                 btnInstall.Enabled = false;
+                btnInstallLocation.Enabled = false;
                 tboxLocation.Enabled = false;
 
                 lblStatus.Text = "Status: Downloading .Net Files...";
@@ -135,6 +157,12 @@ namespace GrainBound_Installer
                 catch (Exception ex)
                 {
                     MessageBox.Show("An error occurred while downloading .Net Core: " + ex.Message, "Error");
+
+                    btnInstall.Enabled = true;
+                    btnInstallLocation.Enabled = true;
+                    tboxLocation.Enabled = true;
+
+                    lblStatus.Text = "Status: Failed to download .Net files.";
                 }
             }
             else
@@ -147,33 +175,60 @@ namespace GrainBound_Installer
         private void installFiles()
         {
             btnInstall.Enabled = false;
+            btnInstallLocation.Enabled = false;
             tboxLocation.Enabled = false;
 
-            lblStatus.Text = "Status: Downloading GrainBound Files...";
+            lblStatus.Text = "Status: Starting download of GrainBound Files...";
             dlDotNet = false;
-            webClient.DownloadFileAsync(new Uri(GRAINBOUND_PATH), tboxLocation.Text + "\\gb.zip");
-            downloading = true;
-            btnCancel.Text = "Cancel";
+
+            try
+            {
+                webClient.DownloadFileAsync(new Uri(GRAINBOUND_PATH), tboxLocation.Text + "\\gb.zip");
+                downloading = true;
+                btnCancel.Text = "Cancel";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("An error occurred while downloading GrainBound files: " + ex.Message, "Error");
+
+                btnInstall.Enabled = true;
+                btnInstallLocation.Enabled = true;
+                tboxLocation.Enabled = true;
+
+                lblStatus.Text = "Status: Failed to download GrainBound files.";
+            }
         }
 
         private void unzipApplication()
         {
             lblStatus.Text = "Status: Unzipping files...";
+            lblStatus.Refresh();
 
-            System.IO.Compression.ZipFile.ExtractToDirectory(tboxLocation.Text + "\\gb.zip", tboxLocation.Text);
+            try
+            {
+                System.IO.Compression.ZipFile.ExtractToDirectory(tboxLocation.Text + "\\gb.zip", tboxLocation.Text);
 
-            File.Delete(tboxLocation.Text + "\\gb.zip");
+                File.Delete(tboxLocation.Text + "\\gb.zip");
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occurred while unzipping install files. Message: " + ex.Message, "Error");
+                Process.Start(tboxLocation.Text);
+            }
 
             if (cboxDesktopShortcut.Checked)
                 createShortcut();
 
+            createRegistryKey();
+
             btnInstall.Enabled = true;
+            btnInstallLocation.Enabled = true;
             tboxLocation.Enabled = true;
             lblStatus.Text = "Status: Complete.";
             pgbProgress.Value = 0;
 
             MessageBox.Show("GrainBound installation complete.", "Installation Complete");
-            createRegistryKey();
+            Application.Exit();
         }
 
         private void createShortcut()
@@ -188,8 +243,20 @@ namespace GrainBound_Installer
             shortcut.Description = "GrainBound Application";
             shortcut.TargetPath = tboxLocation.Text + "\\GrainBound\\GrainBound.exe";
             shortcut.WorkingDirectory = tboxLocation.Text + "\\GrainBound";
-            shortcut.Save();
+
+            try
+            {
+                shortcut.Save();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("An error occurred while creating a desktop shortcut. Message: " + ex.Message, "Error");
+            }
         }
+
+        #endregion
+
+        #region Registry Functions
 
         Microsoft.Win32.RegistryKey regKey;
         private string prevInstallLoc;
@@ -216,11 +283,22 @@ namespace GrainBound_Installer
             regKey.Close();
         }
 
+        #endregion
+
+        #region Form Functions
+
         private void btnInstall_Click(object sender, EventArgs e)
         {
             if (Directory.Exists(tboxLocation.Text))
             {
-                Directory.Delete(tboxLocation.Text, true);
+                try
+                {
+                    Directory.Delete(tboxLocation.Text, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("An error occurred while deleting existing GrainBound files. Message: " + ex.Message, "Error");
+                }
             }
 
             try
@@ -289,5 +367,7 @@ namespace GrainBound_Installer
 
             if (fbd.ShowDialog() == DialogResult.OK) tboxLocation.Text = fbd.SelectedPath + @"\GrainBound";
         }
+
+        #endregion
     }
 }
