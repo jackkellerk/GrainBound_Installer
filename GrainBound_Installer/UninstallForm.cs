@@ -24,44 +24,47 @@ namespace GrainBound_Installer
 
         private void UninstallForm_Load(object sender, EventArgs e)
         {
-            checkRegistryKey();
-            tboxLocation.Text = installLoc;
-        }
-
-
-        Microsoft.Win32.RegistryKey regKey;
-        private string installLoc;
-        private void checkRegistryKey()
-        {
-            try
-            {
-                regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("GrainBound");
-                installLoc = (string)regKey.GetValue("InstallInfo");
-                regKey.Close();
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("Failed to access registry key: " + ex.Message, "Error");
-                this.Close();
-            }
-        }
-        private void removeRegistryKey()
-        {
-            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey("GrainBound");
-            regKey.Close();
+            tboxLocation.Text = GBRegistry.checkRegistryKey(GBRegistry.GRAINBOUND_INSTALL_KEY);
         }
 
         private void btnUninstall_Click(object sender, EventArgs e)
         {
-            if(MessageBox.Show("This operation will permanently remove GrainBound from your computer. Are you sure you wish to proceed?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            bool backedUpProjects = false;
+            string newPath = "";
+
+            if (MessageBox.Show("This operation will permanently remove GrainBound from your computer. Are you sure you wish to proceed?", "Confirmation", MessageBoxButtons.YesNo) == DialogResult.Yes)
             {
+                string[] files = Directory.GetFiles(tboxLocation.Text, "*.grainbound", SearchOption.AllDirectories);
+                if(files.Length > 0)
+                {
+                    DialogResult result = MessageBox.Show("GrainBound files have been detected inside the install folder. Do you want to save these files before uninstalling?\n\nYes = GrainBound projects will be moved to a different folder, then the program will be uninstalled.\nNo = Delete all files, including GrainBound projects.\nCancel = Stop uninstallation process.", "GrainBound Saved Projects Detected", MessageBoxButtons.YesNoCancel);
+                    if (result == DialogResult.Yes)
+                    {
+                        newPath = tboxLocation.Text.Substring(0, tboxLocation.Text.LastIndexOf("\\")) + "\\GrainBound Projects";
+                        try
+                        {
+                            Directory.CreateDirectory(newPath);
+                            for (int i = 0; i < files.Length; i++) File.Move(files[i], newPath + files[i].Substring(files[i].LastIndexOf("\\")));
+                            backedUpProjects = true;
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("An error occurred while moving GrainBound projects: " + ex.Message + "\n\nThe uninstall process has been cancelled.", "Error");
+                        }
+                    }
+                    else if(result == DialogResult.Cancel)
+                    {
+                        return;
+                    }
+                }
+
                 btnUninstall.Text = "Uninstalling...";
                 btnUninstall.Enabled = false;
                 Directory.Delete(tboxLocation.Text, true);
                 if (File.Exists("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk"))
                     File.Delete("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk");
-                removeRegistryKey();
-                MessageBox.Show("GrainBound uninstalled successfully.", "Success");
+                GBRegistry.removeRegistryKey();
+                MessageBox.Show("GrainBound uninstalled successfully." + (backedUpProjects ? (" Existing projects have been moved to " + newPath) : ""), "Success");
                 this.Close();
             }
         }

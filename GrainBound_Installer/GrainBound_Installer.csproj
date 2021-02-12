@@ -107,6 +107,7 @@
     <Compile Include="AALabel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="GBRegistry.cs" />
     <Compile Include="UninstallForm.cs">
       <SubType>Form</SubType>
     </Compile>

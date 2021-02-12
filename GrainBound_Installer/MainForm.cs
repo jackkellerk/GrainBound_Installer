@@ -37,16 +37,17 @@ namespace GrainBound_Installer
             webClient.DownloadFileCompleted += new AsyncCompletedEventHandler(DownloadCompleted);
             webClient.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressChanged);
 
-            if(checkRegistryKey())
+            string installLoc = GBRegistry.checkRegistryKey(GBRegistry.GRAINBOUND_INSTALL_KEY);
+            if(installLoc != null)
             {
-                if(Directory.Exists(prevInstallLoc))
+                if(Directory.Exists(installLoc))
                 {
                     this.Hide();
                     (new UninstallForm()).ShowDialog();
                 }
                 else
                 {
-                    removeRegistryKey();
+                    GBRegistry.removeRegistryKey();
                 }
             }
         }
@@ -219,7 +220,7 @@ namespace GrainBound_Installer
             if (cboxDesktopShortcut.Checked)
                 createShortcut();
 
-            createRegistryKey();
+            GBRegistry.createRegistryKey(GBRegistry.GRAINBOUND_INSTALL_KEY, tboxLocation.Text);
 
             btnInstall.Enabled = true;
             btnInstallLocation.Enabled = true;
@@ -256,32 +257,34 @@ namespace GrainBound_Installer
 
         #endregion
 
-        #region Registry Functions
+        #region Update Functions
 
-        Microsoft.Win32.RegistryKey regKey;
-        private string prevInstallLoc;
-        private void createRegistryKey()
-        {
-            regKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("GrainBound");
-            regKey.SetValue("InstallInfo", tboxLocation.Text);
-            regKey.Close();
-        }
-        private bool checkRegistryKey()
+        private const string VERSION_PATH = "test.test/version.txt";
+        private string retrievedRecentVersion = null;
+        private string getMostRecentVersion()
         {
             try
             {
-                regKey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey("GrainBound");
-                prevInstallLoc = (string)regKey.GetValue("InstallInfo");
-                regKey.Close();
-                return true;
+                if(retrievedRecentVersion == null)
+                {
+                    retrievedRecentVersion = webClient.DownloadString(VERSION_PATH);
+                }
+                return retrievedRecentVersion;
             }
-            catch { return false; }
+            catch { return null; }
         }
-        private void removeRegistryKey()
+        private string getCurrentVersion()
         {
-            Microsoft.Win32.Registry.CurrentUser.DeleteSubKey("GrainBound");
-            regKey.Close();
+            return GBRegistry.checkRegistryKey(GBRegistry.GRAINBOUND_VERSION_KEY);
         }
+        private bool checkClientUpdated()
+        {
+            return getCurrentVersion() == getMostRecentVersion();
+        }
+
+        // set version key upon install
+        // check version key upon program start
+        // if version is set and not updated, change form elements to say "update" rather than "install" but do same shit
 
         #endregion
 
