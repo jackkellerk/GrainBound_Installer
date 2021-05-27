@@ -172,7 +172,8 @@ namespace GrainBound_Installer
             }
         }
 
-        private const string GRAINBOUND_PATH = "http://www.tutoran.net/GrainBound.zip";
+        //https://www.jackkellerk.com/GrainBound.zip
+        private const string GRAINBOUND_PATH = "http://71.230.68.146:8080/GB_INSTALL.zip";
         private void installFiles()
         {
             btnInstall.Enabled = false;
@@ -184,6 +185,12 @@ namespace GrainBound_Installer
 
             try
             {
+                System.Net.ServicePointManager.ServerCertificateValidationCallback +=
+                    (se, cert, chain, sslerror) =>
+                    {
+                        return true;
+                    };
+
                 webClient.DownloadFileAsync(new Uri(GRAINBOUND_PATH), tboxLocation.Text + "\\gb.zip");
                 downloading = true;
                 btnCancel.Text = "Cancel";
@@ -210,6 +217,13 @@ namespace GrainBound_Installer
                 System.IO.Compression.ZipFile.ExtractToDirectory(tboxLocation.Text + "\\gb.zip", tboxLocation.Text);
 
                 File.Delete(tboxLocation.Text + "\\gb.zip");
+
+                File.Copy(
+                    tboxLocation.Text + "\\python\\Lib\\pywin32_system32\\pythoncom37.dll",
+                    "C:\\Windows\\System32\\pythoncom37.dll");
+                File.Copy(
+                    tboxLocation.Text + "\\python\\Lib\\pywin32_system32\\pywintypes37.dll",
+                    "C:\\Windows\\System32\\pywintypes37.dll");
             }
             catch(Exception ex)
             {
@@ -241,9 +255,10 @@ namespace GrainBound_Installer
             object shDesktop = (object)"Desktop";
             IWshRuntimeLibrary.IWshShortcut shortcut = (IWshRuntimeLibrary.IWshShortcut)shell.CreateShortcut((string)shell.SpecialFolders.Item(ref shDesktop) + @"\GrainBound.lnk");
 
+            shortcut.IconLocation = tboxLocation.Text + "\\logo.ico";
             shortcut.Description = "GrainBound Application";
-            shortcut.TargetPath = tboxLocation.Text + "\\GrainBound\\GrainBound.exe";
-            shortcut.WorkingDirectory = tboxLocation.Text + "\\GrainBound";
+            shortcut.TargetPath = tboxLocation.Text + "\\RunGrainBound.bat";
+            shortcut.WorkingDirectory = tboxLocation.Text;
 
             try
             {

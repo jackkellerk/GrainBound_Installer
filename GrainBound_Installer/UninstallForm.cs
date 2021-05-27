@@ -63,6 +63,12 @@ namespace GrainBound_Installer
                 Directory.Delete(tboxLocation.Text, true);
                 if (File.Exists("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk"))
                     File.Delete("C:\\Users\\" + Environment.UserName + "\\Desktop\\GrainBound.lnk");
+                try
+                {
+                    File.Delete("C:\\Windows\\System32\\pythoncom37.dll");
+                    File.Delete("C:\\Windows\\System32\\pywintypes37.dll");
+                }
+                catch { }
                 GBRegistry.removeRegistryKey();
                 MessageBox.Show("GrainBound uninstalled successfully." + (backedUpProjects ? (" Existing projects have been moved to " + newPath) : ""), "Success");
                 this.Close();
